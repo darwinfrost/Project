@@ -3,7 +3,7 @@
 // Type-only imports describe props and state without adding runtime imports.
 import type { ClothingProduct } from '../data/data.ts';
 import CartContainer from './cartContainer.tsx';
-import clothesContainer from './clothesContainer.tsx';
+import ClothesContainer from './clothesContainer.tsx';
 import { useState } from "react";
 
 interface clothesData {
@@ -18,28 +18,30 @@ export interface ProductInfo {
   quantity: number;
   // Selected unit price, rather than the calculated total.
   price: number;
+  name: string,
 }
 
 /** Snapshot of a selection at the moment Add to Cart is clicked. */
 export interface CartItem {
   // A new UUID identifies each cart entry, including repeated adds of one fruit.
   id: string;
-  product: string;
+  name: string;
   quantity: number;
   price: number;
   // Numeric quantity * price captured with the entry; formatting happens in TSX.
   total: number;
 }
 
-export default function FruitsApp({ data }: FruitData) {
+export default function ThriftApp({ data }: clothesData) {
   // The generic specifies an array of state objects. The lazy initializer derives
   // starting values when mounting rather than rebuilding them on every render.
   // Later changes to data do not reset this state; this example uses a fixed catalog.
   const [productInfo, setProductInfo] = useState<ProductInfo[]>(() =>
-    data.map((fruit) => ({
-      id: fruit.id,
-      quantity: fruit.quantity,
-      price: fruit.priceOptions[0],
+    data.map((clothingProduct) => ({
+      id: clothingProduct.id,
+      name: clothingProduct.name,
+      quantity: clothingProduct.quantity,
+      price: clothingProduct.price,
     })),
   );
 
@@ -84,7 +86,7 @@ export default function FruitsApp({ data }: FruitData) {
   // CartContainer only needs the saved entries to render cards and their sum.
   return (
     <div>
-      <ProductContainer
+      <ClothesContainer
         data={data}
         productInfo={productInfo}
         handleAdjustQuantity={handleAdjustQuantity}

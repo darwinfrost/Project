@@ -1,12 +1,12 @@
 import type { ClothingProduct } from "../data/data.ts";
 import type { ProductInfo } from './thriftApp.tsx';
 import type { CartItem } from './thriftApp.tsx';
-import clothesCard from './clothesCard.tsx';
+import ClothesCard from './clothesCard.tsx';
 
 // This component arranges cards and connects catalog items to their current state.
 // It forwards actions to FruitsApp rather than implementing state updates itself.
 interface ProductContainerProps {
-  data: Fruit[];
+  data: ClothingProduct[];
   productInfo: ProductInfo[];
   // Container callbacks include the ID because they can update any fruit.
   handleAdjustQuantity: (id: number, delta: number) => void;
@@ -16,7 +16,7 @@ interface ProductContainerProps {
 }
 
 // React supplies one props object; destructuring extracts its named properties.
-export default function ProductContainer({
+export default function clothesContainer({
   data,
   productInfo,
   handleAdjustQuantity,
@@ -24,10 +24,10 @@ export default function ProductContainer({
   handleAddToCart,
 }: ProductContainerProps) {
   return (
-    <div className="ProductContainer">
-      {data.map((fruit) => {
+    <div className="clothesContainer">
+      {data.map((clothingProduct) => {
         // Match by stable ID rather than assuming the arrays have the same order.
-        const info = productInfo.find((info) => info.id === fruit.id);
+        const info = productInfo.find((info) => info.id === clothingProduct.id);
         // Avoid rendering a card with undefined state if no matching entry exists.
         if (!info) return null;
 
@@ -36,14 +36,14 @@ export default function ProductContainer({
         // so the card only supplies a quantity change or selected price.
         // Add to Cart is forwarded unchanged: the card constructs its snapshot.
         return (
-          <ProductCard
-            key={fruit.id}
-            {...fruit}
+          <ClothesCard
+            key={clothingProduct.id}
+            {...clothingProduct}
             productInfo={info}
             handleQuantityAdjust={(delta) =>
-              handleAdjustQuantity(fruit.id, delta)
+              handleAdjustQuantity(clothingProduct.id, delta)
             }
-            handlePriceChange={(price) => handleChangePrice(fruit.id, price)}
+            handlePriceChange={(price) => handleChangePrice(clothingProduct.id, price)}
             handleAddToCart={handleAddToCart}
           />
         );
@@ -51,3 +51,25 @@ export default function ProductContainer({
     </div>
   );
 }
+          // <ProductCard
+          //   key={fruit.id}
+          //   {...fruit}
+          //   productInfo={info}
+          //   handleQuantityAdjust={(delta) =>
+          //     handleAdjustQuantity(fruit.id, delta)
+          //   }
+          //   handlePriceChange={(price) => handleChangePrice(fruit.id, price)}
+          //   handleAddToCart={handleAddToCart}
+          // />
+
+
+          //           <clothesCard
+          //   key={clothingProduct.id}
+          //   {...clothingProduct}
+          //   productInfo={info}
+          //   handleQuantityAdjust={(delta) =>
+          //     handleAdjustQuantity(clothingProduct.id, delta)
+          //   }
+          //   handlePriceChange={(price) => handleChangePrice(clothingProduct.id, price)}
+          //   handleAddToCart={handleAddToCart}
+          // />

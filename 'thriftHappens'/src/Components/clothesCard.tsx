@@ -1,33 +1,43 @@
 import type { ClothingProduct } from '../data/data.ts';
+import type { ProductInfo } from './thriftApp.tsx';
+import type { CartItem } from './thriftApp.tsx';
 
-export default function clothesCard ({
-  product,
-  priceOptions,
-  img,
+// Extend catalog fields with current state and the actions this card can request.
+// These callbacks hide how the parent stores and updates its state arrays.
+interface clothesCardProps extends ClothingProduct {
+  name: string;
+  price: number;
+  image: string;
+  productInfo: ProductInfo;
+  handleQuantityAdjust: (delta: number) => void;
+  handlePriceChange: (price: number) => void;
+  handleAddToCart: (cartItem: CartItem) => void;
+}
+
+// Presentational component: render the supplied values and report interactions.
+// Props are inputs; calling a callback asks FruitsApp to supply updated values.
+export default function clothesCard({
+  name,
+  image,
   productInfo,
   handleQuantityAdjust,
   handlePriceChange,
   handleAddToCart,
-}: ProductCardProps) {
+}: clothesCardProps) {
   return (
-    <div className="ProductCard">
-      <h2>{product}</h2>
-      <img src={img} alt="" height="100px" />
+    <div className="clothesCard">
+      <h2>{name}</h2>
+      <img src={image} alt="" height="100px" />
       <br />
       {/* Controlled select: React state determines the selected option.
           DOM input values are strings, so convert the selection to a number. */}
       <select
-        name="priceOption"
+        name="price"
         value={productInfo.price}
         onChange={(e) => handlePriceChange(parseFloat(e.target.value))}
       >
-        {/* Keep numeric option values separate from their two-decimal labels.
-            Prices serve as keys here, assuming options are unique per fruit. */}
-        {priceOptions.map((price) => (
-          <option key={price} value={price}>
-            {price.toFixed(2)}
-          </option>
-        ))}
+        /* Keep numeric option values separate from their two-decimal labels.
+            Prices serve as keys here, assuming options are unique per fruit. */
       </select>
       <br />
       {/* Arrow functions defer actions until a click; the parent enforces the floor. */}
@@ -48,7 +58,7 @@ export default function clothesCard ({
         onClick={() =>
           handleAddToCart({
             id: crypto.randomUUID(),
-            product,
+            name: productInfo.name,
             price: productInfo.price,
             quantity: productInfo.quantity,
             total: productInfo.quantity * productInfo.price,
