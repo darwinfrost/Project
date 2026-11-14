@@ -1,8 +1,6 @@
 import type { CartItem } from './thriftApp.tsx';
 
-// Displays one saved cart snapshot. The default export is imported as CartCard
-// by the list component.
-// Destructuring extracts fields from React's single props object.
+
 export default function CartCard({
   name,
   price,
@@ -13,9 +11,6 @@ export default function CartCard({
     <div className="CartCard">
       <h2>{name}</h2>
       <p>quantity: {quantity}</p>
-      {/* Format each monetary value where it is displayed. toFixed returns a
-          string and hides floating-point display artifacts; it does not mutate
-          the numeric price or total stored in the cart. */}
       <p>price: {price.toFixed(2)}$</p>
       <p>total: {total.toFixed(2)}$</p>
     </div>
