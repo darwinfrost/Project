@@ -26,7 +26,8 @@ export default function clothesCard({
     <div className="clothesCard">
       <h2>{name}</h2>
       <img src={image} alt="" height="100px" />
-      <p>{productInfo.quantity} in stock</p>
+      {productInfo.quantity == 0 ? <p>Out of stock</p> :
+      <p>{productInfo.quantity} in stock</p>}
       <br />
       <select
         name="price"
