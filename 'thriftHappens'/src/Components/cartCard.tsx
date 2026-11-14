@@ -1,6 +1,5 @@
 import type { CartItem } from './thriftApp.tsx';
 
-
 export default function CartCard({
   name,
   price,
@@ -13,6 +12,7 @@ export default function CartCard({
       <p>quantity: {quantity}</p>
       <p>price: {price.toFixed(2)}$</p>
       <p>total: {total.toFixed(2)}$</p>
+      <button>Remove from cart</button>
     </div>
   );
 }

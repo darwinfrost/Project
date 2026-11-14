@@ -11,7 +11,7 @@ interface clothesData {
 export interface ProductInfo {
  
   id: number;
-  
+  itemQuantity: number;
   quantity: number;
   
   price: number;
@@ -35,6 +35,7 @@ export default function ThriftApp({ data }: clothesData) {
     data.map((clothingProduct) => ({
       id: clothingProduct.id,
       name: clothingProduct.name,
+      itemQuantity: clothingProduct.itemQuantity,
       quantity: clothingProduct.quantity,
       price: clothingProduct.price,
     })),
@@ -50,7 +51,7 @@ export default function ThriftApp({ data }: clothesData) {
       
       prevData.map((info) =>
         info.id === id
-          ? { ...info, quantity: Math.max(0, info.quantity + delta) }
+          ? { ...info, itemQuantity: Math.max(0, info.itemQuantity + delta) }
           : info,
       ),
     );

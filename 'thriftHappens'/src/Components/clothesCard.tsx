@@ -26,21 +26,20 @@ export default function clothesCard({
     <div className="clothesCard">
       <h2>{name}</h2>
       <img src={image} alt="" height="100px" />
+      <p>{productInfo.quantity} in stock</p>
       <br />
       <select
         name="price"
         value={productInfo.price}
         onChange={(e) => handlePriceChange(parseFloat(e.target.value))}
       >
-        /* Keep numeric option values separate from their two-decimal labels.
-            Prices serve as keys here, assuming options are unique per fruit. */
       </select>
       <br />
-      <button onClick={() => handleQuantityAdjust(-1)}>{" - "}</button>
-      <span>{productInfo.quantity}</span>
-      <button onClick={() => handleQuantityAdjust(1)}>{" + "}</button>
+      <button disabled= {productInfo.itemQuantity == 0 || productInfo.quantity == 0} onClick={() => handleQuantityAdjust(-1)}>{" - "}</button>
+      <span>{productInfo.itemQuantity}</span>
+      <button disabled= {productInfo.itemQuantity == productInfo.quantity || productInfo.quantity == 0} onClick={() => handleQuantityAdjust(1)}>{" + "}</button>
       <p>
-        Total Price: {(productInfo.quantity * productInfo.price).toFixed(2)}$
+        Total Price: {(productInfo.itemQuantity * productInfo.price).toFixed(2)}$
       </p>
       <button
         onClick={() =>
