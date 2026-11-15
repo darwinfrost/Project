@@ -112,6 +112,14 @@ export default function ThriftApp({ data }: clothesData) {
   //   }
   //   });
   // }
+
+  function handleRemoveFromCart(cartItem: CartItem){
+    setCartItems((prevCart) => prevCart.filter((item) =>
+    item.id !== cartItem.id));
+    setProductInfo((prevData) => prevData.map((info) =>
+    info.id == cartItem.productId?
+    {...info, quantity: info.quantity + cartItem.quantity} : info));
+  }
   
   return (
     <div>
@@ -121,7 +129,9 @@ export default function ThriftApp({ data }: clothesData) {
         handleAdjustQuantity={handleAdjustQuantity}
         handleAddToCart={handleAddToCart}
       />
-      <CartContainer cartData={cartItems} />
+      <CartContainer cartData={cartItems}
+       handleRemoveFromCart={handleRemoveFromCart}
+       />
     </div>
   );
 }
