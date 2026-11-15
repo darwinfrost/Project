@@ -42,15 +42,15 @@ export default function clothesCard({
       <p>
         Total Price: {(productInfo.itemQuantity * productInfo.price).toFixed(2)}$
       </p>
-      <button
-        onClick={() =>
+      <button disabled= {productInfo.itemQuantity == 0}
+        onClick={() =>{
           handleAddToCart({
             id: crypto.randomUUID(),
             name: productInfo.name,
             price: productInfo.price,
-            quantity: productInfo.quantity,
-            total: productInfo.quantity * productInfo.price,
-          })
+            quantity: productInfo.itemQuantity,
+            total: productInfo.itemQuantity * productInfo.price,
+          });  productInfo.quantity -= productInfo.itemQuantity; productInfo.itemQuantity = 0;}
         }
       >
         Add to Cart
