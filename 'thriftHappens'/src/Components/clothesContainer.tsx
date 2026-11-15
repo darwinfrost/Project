@@ -9,7 +9,6 @@ interface ProductContainerProps {
   productInfo: ProductInfo[];
   
   handleAdjustQuantity: (id: number, delta: number) => void;
-  handleChangePrice: (id: number, price: number) => void;
  
   handleAddToCart: (cartItem: CartItem) => void;
 }
@@ -19,7 +18,6 @@ export default function clothesContainer({
   data,
   productInfo,
   handleAdjustQuantity,
-  handleChangePrice,
   handleAddToCart,
 }: ProductContainerProps) {
   return (
@@ -39,7 +37,6 @@ export default function clothesContainer({
             handleQuantityAdjust={(delta) =>
               handleAdjustQuantity(clothingProduct.id, delta)
             }
-            handlePriceChange={(price) => handleChangePrice(clothingProduct.id, price)}
             handleAddToCart={handleAddToCart}
           />
         );

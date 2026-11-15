@@ -57,11 +57,8 @@ export default function ThriftApp({ data }: clothesData) {
   }
 
   
-  function handleChangePrice(id: number, price: number) {
-    setProductInfo((prevData) =>
-      prevData.map((info) => (info.id === id ? { ...info, price } : info)),
-    );
-  }
+
+  
 
   
   function handleAddToCart(cartItem: CartItem) {
@@ -78,7 +75,6 @@ export default function ThriftApp({ data }: clothesData) {
         data={data}
         productInfo={productInfo}
         handleAdjustQuantity={handleAdjustQuantity}
-        handleChangePrice={handleChangePrice}
         handleAddToCart={handleAddToCart}
       />
       <CartContainer cartData={cartItems} />

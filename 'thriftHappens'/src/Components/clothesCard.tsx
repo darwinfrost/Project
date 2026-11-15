@@ -9,7 +9,6 @@ interface clothesCardProps extends ClothingProduct {
   image: string;
   productInfo: ProductInfo;
   handleQuantityAdjust: (delta: number) => void;
-  handlePriceChange: (price: number) => void;
   handleAddToCart: (cartItem: CartItem) => void;
 }
 
@@ -19,7 +18,6 @@ export default function clothesCard({
   image,
   productInfo,
   handleQuantityAdjust,
-  handlePriceChange,
   handleAddToCart,
 }: clothesCardProps) {
   return (
@@ -28,13 +26,6 @@ export default function clothesCard({
       <img src={image} alt="" height="100px" />
       {productInfo.quantity == 0 ? <p>Out of stock</p> :
       <p>{productInfo.quantity} in stock</p>}
-      <br />
-      <select
-        name="price"
-        value={productInfo.price}
-        onChange={(e) => handlePriceChange(parseFloat(e.target.value))}
-      >
-      </select>
       <br />
       <button disabled= {productInfo.itemQuantity == 0 || productInfo.quantity == 0} onClick={() => handleQuantityAdjust(-1)}>{" - "}</button>
       <span>{productInfo.itemQuantity}</span>
