@@ -27,6 +27,7 @@ export interface CartItem {
   price: number;
   quantity: number;
   total: number;
+  image: string;
 }
 
 export default function ThriftApp({ data }: clothesData) {
@@ -64,20 +65,16 @@ export default function ThriftApp({ data }: clothesData) {
     const existingItem = prevCart.find((item) => item.productId === newItem.productId);
     if (existingItem) {
       return prevCart.map((item) =>item.productId === newItem.productId? {
-              ...item,
-              quantity: item.quantity + newItem.quantity,
-              total: item.total + newItem.total,
-            }: item);}
+        ...item,
+        quantity: item.quantity + newItem.quantity,
+        total: item.total + newItem.total,
+        }: item);}
   return [...prevCart, newItem];});
   setProductInfo((prevData) =>
     prevData.map((info) =>info.id === newItem.productId? {
-            ...info,
-            quantity: info.quantity - newItem.quantity,
-            itemQuantity: 0,
-          }
-        : info
-    )
-  );
+    ...info,
+    quantity: info.quantity - newItem.quantity,
+    itemQuantity: 0,}: info));
 }
 
   // function handleAddToCart(cartItem: CartItem) {

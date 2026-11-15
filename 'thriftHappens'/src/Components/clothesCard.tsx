@@ -42,6 +42,7 @@ export default function clothesCard({
             price: productInfo.price,
             quantity: productInfo.itemQuantity,
             total: productInfo.itemQuantity * productInfo.price,
+            image: image,
           });
         }}
       >

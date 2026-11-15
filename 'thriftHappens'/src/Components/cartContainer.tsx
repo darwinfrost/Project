@@ -9,6 +9,7 @@ interface CartContainerProps {
 export default function CartContainer({ cartData }: CartContainerProps) {
   return (
     <div className="CartContainer">
+      <h1>Cart</h1>
       {cartData.map((item) => (
         <CartCard key={item.id} {...item} />
       ))}
