@@ -22,6 +22,7 @@ export interface ProductInfo {
 export interface CartItem {
  
   id: string;
+  productId: number;
   name: string;
   price: number;
   quantity: number;
@@ -58,16 +59,62 @@ export default function ThriftApp({ data }: clothesData) {
 
   
 
-  
+  function handleAddToCart(newItem: CartItem) {
+  setCartItems((prevCart) => {
+    const existingItem = prevCart.find((item) => item.productId === newItem.productId);
+    if (existingItem) {
+      return prevCart.map((item) =>item.productId === newItem.productId? {
+              ...item,
+              quantity: item.quantity + newItem.quantity,
+              total: item.total + newItem.total,
+            }: item);}
+  return [...prevCart, newItem];});
+  setProductInfo((prevData) =>
+    prevData.map((info) =>info.id === newItem.productId? {
+            ...info,
+            quantity: info.quantity - newItem.quantity,
+            itemQuantity: 0,
+          }
+        : info
+    )
+  );
+}
 
-  
-  function handleAddToCart(cartItem: CartItem) {
-    setCartItems((prevCart) => {
+  // function handleAddToCart(cartItem: CartItem) {
+  //   setCartItems((prevCart) => {
       
-      return [...prevCart, { ...cartItem }];
-    });
-  }
+  //     return [...prevCart, { ...cartItem }];
+  //   });
+  // }
 
+  // function handleAddToCart(cartItem: CartItem) {
+  //   (cartItems.some((item) => item.id === cartItem.id))? 
+  //   cartItems.find((item) => item.id === cartItem.id)!.quantity += cartItem.quantity
+  //   :
+    
+  //   setCartItems((prevCart) => {
+      
+  //     return [...prevCart, { ...cartItem }];
+  //   });
+  // }
+
+
+  //   function handleAddToCart(newCartItem: CartItem) {
+  //   cartItems.forEach((cartItem) => {
+  //   { if (cartItem.id == cartItem.id)
+  //   {
+  //     cartItem.quantity += cartItem.quantity;
+  //   }
+  //   else 
+  //   {
+  //         setCartItems((prevCart) => {
+      
+  //     return [...prevCart, { ...newCartItem }];
+  //   });
+  //   }
+  //   }
+  //   });
+  // }
   
   return (
     <div>

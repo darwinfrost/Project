@@ -37,12 +37,13 @@ export default function clothesCard({
         onClick={() =>{
           handleAddToCart({
             id: crypto.randomUUID(),
+            productId: productInfo.id,
             name: productInfo.name,
             price: productInfo.price,
             quantity: productInfo.itemQuantity,
             total: productInfo.itemQuantity * productInfo.price,
-          });  productInfo.quantity -= productInfo.itemQuantity; productInfo.itemQuantity = 0;}
-        }
+          });
+        }}
       >
         Add to Cart
       </button>
